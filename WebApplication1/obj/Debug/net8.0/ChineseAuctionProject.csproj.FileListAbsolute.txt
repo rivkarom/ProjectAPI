@@ -1,0 +1,67 @@
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.csproj.AssemblyReference.cache
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.AssemblyInfoInputs.cache
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.AssemblyInfo.cs
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.csproj.CoreCompileInputs.cache
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\bin\Debug\net8.0\appsettings.json
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\bin\Debug\net8.0\ChineseAuctionProject.exe
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\bin\Debug\net8.0\ChineseAuctionProject.deps.json
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\bin\Debug\net8.0\ChineseAuctionProject.runtimeconfig.json
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\bin\Debug\net8.0\ChineseAuctionProject.dll
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\bin\Debug\net8.0\ChineseAuctionProject.pdb
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.ChineseAuctionProject.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.build.ChineseAuctionProject.props
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.ChineseAuctionProject.props
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.ChineseAuctionProject.props
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\scopedcss\bundle\ChineseAuctionProject.styles.css
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseA.2BFB5478.Up2Date
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.dll
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\refint\ChineseAuctionProject.dll
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.pdb
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.genruntimeconfig.cache
+C:\Users\1\Downloads\project API\WebApplication1\WebApplication1\obj\Debug\net8.0\ref\ChineseAuctionProject.dll
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\bin\Debug\net8.0\appsettings.json
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\bin\Debug\net8.0\ChineseAuctionProject.staticwebassets.endpoints.json
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\bin\Debug\net8.0\ChineseAuctionProject.exe
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\bin\Debug\net8.0\ChineseAuctionProject.deps.json
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\bin\Debug\net8.0\ChineseAuctionProject.runtimeconfig.json
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\bin\Debug\net8.0\ChineseAuctionProject.dll
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\bin\Debug\net8.0\ChineseAuctionProject.pdb
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.csproj.AssemblyReference.cache
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.AssemblyInfoInputs.cache
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.AssemblyInfo.cs
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.csproj.CoreCompileInputs.cache
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\scopedcss\bundle\ChineseAuctionProject.styles.css
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseA.2BFB5478.Up2Date
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.dll
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\refint\ChineseAuctionProject.dll
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.pdb
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\ChineseAuctionProject.genruntimeconfig.cache
+C:\Users\User\Downloads\project API (2)\WebApplication1\WebApplication1\obj\Debug\net8.0\ref\ChineseAuctionProject.dll
