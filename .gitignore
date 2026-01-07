@@ -1,0 +1,22 @@
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Visual Studio 2015/2017 cache/options directory
+.vs/
+
+# Properties וקבצי הגדרות הרצה
+Properties/launchSettings.json
+
+# קבצי הגדרות סודיים (חשוב במיוחד ל-API)
+appsettings.Development.json
+.env
