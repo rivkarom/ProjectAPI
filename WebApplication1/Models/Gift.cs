@@ -1,4 +1,6 @@
-﻿namespace ChineseAuctionProject.Models
+﻿using System.Collections.Generic;
+
+namespace ChineseAuctionProject.Models
 {
     public class Gift
     {
@@ -8,7 +10,7 @@
         public string Description { get; set; }
         public int WinnersCount { get; set; }
         public int TicketPrice { get; set; }
-        public List<string> WinnersList { get; set; }//userIds
-
+        public List<User> WinnersList { get; set; } = new(); // userIds
+        public string? DonorId { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 using ChineseAuctionProject.DTOs;
 using ChineseAuctionProject.Interfaces;
+using StoreApi.Data;
 
 namespace ChineseAuctionProject.Repositories
 {
