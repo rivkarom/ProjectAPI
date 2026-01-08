@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace ChineseAuctionProject.DTOs
 {
@@ -26,9 +27,9 @@ namespace ChineseAuctionProject.DTOs
             [MinLength(7, ErrorMessage = "Add digits, phone number must be at least 7 characters long")]
             public string Phone { get; set; }
 
+            // accept gift IDs when creating a donor
             [Required]
-            public List<int> DonatiosList { get; set; } = new();
-
+            public List<int> GiftIds { get; set; } = new();
         }
 
         public class DonorUpdateDto
@@ -45,7 +46,8 @@ namespace ChineseAuctionProject.DTOs
             [MinLength(7, ErrorMessage = "Add digits, phone number must be at least 7 characters long")]
             public string? Phone { get; set; }
 
-            public List<int> DonatiosList { get; set; };
+            // allow updating associated gift IDs
+            public List<int>? GiftIds { get; set; } = new();
         }
 
         public class DonorResponseDto
@@ -54,8 +56,10 @@ namespace ChineseAuctionProject.DTOs
             public string Name { get; set; }
             public string Email { get; set; }
             public string Phone { get; set; }
-            public List<int> DonatiosList { get; set; }
-        }
 
+            // return full gift DTOs in response (safer than exposing domain entities)
+            public List<GiftDTOs.GiftReadDTO> Donations { get; set; } = new();
+        }
     }
+
 }

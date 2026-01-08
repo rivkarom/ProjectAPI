@@ -6,6 +6,6 @@
         public string Name { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public List<int> DonatiosList { get; set; }//giftIds
+        public List<Gift> DonationsList { get; set; } = new(); 
     }
 }

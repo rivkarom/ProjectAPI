@@ -1,8 +1,8 @@
-﻿using static ChineseAuctionProject.DTOs.OrderManegementDTOs;
+﻿using static ChineseAuctionProject.DTOs.OrderManagementDTOs;
 
 namespace ChineseAuctionProject.Interfaces
 {
-    public interface IOrderManegementRepository
+    public interface IOrderManagementRepository
     {
         Task<IEnumerable<OrderManagmentReadDto>> GetAllOrderManagementAsync();
         Task<OrderManagmentReadDto?> GetOrderManagementByIdAsync(int id);

@@ -2,7 +2,7 @@
 
 namespace ChineseAuctionProject.DTOs
 {
-    public class OrderManegementDTOs
+    public class OrderManagementDTOs
     {
         public class OrderManagmentCreateDto
         {

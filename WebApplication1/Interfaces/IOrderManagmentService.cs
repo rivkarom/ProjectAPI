@@ -3,7 +3,7 @@ using static ChineseAuctionProject.DTOs.UserDTOs;
 
 namespace ChineseAuctionProject.Interfaces
 {
-    public interface IOrderManegmentService
+    public interface IOrderManagmentService
     {
         Task<IEnumerable<UserResponseDto>> GetAllOrderManagementAsync();
         Task<UserResponseDto?> GetOrderManagementByIdAsync(int id);
