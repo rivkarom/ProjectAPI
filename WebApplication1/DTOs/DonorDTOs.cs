@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ChineseAuctionProject.Models;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ChineseAuctionProject.DTOs
 {
@@ -60,6 +61,9 @@ namespace ChineseAuctionProject.DTOs
             // return full gift DTOs in response (safer than exposing domain entities)
             public List<GiftDTOs.GiftReadDTO> Donations { get; set; } = new();
         }
+        
+
+        
     }
 
 }

@@ -6,6 +6,6 @@
         public string Name { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public List<Gift> DonationsList { get; set; } = new(); 
+        public List<Gift> DonationsList { get; set; } = new(); //חייבים
     }
 }

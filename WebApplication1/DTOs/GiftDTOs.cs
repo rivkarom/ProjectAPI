@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations;
 
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+
 namespace ChineseAuctionProject.DTOs
 {
     public class GiftDTOs
@@ -14,7 +17,7 @@ namespace ChineseAuctionProject.DTOs
             public string Name { get; set; }
 
             [Required]
-            public CategoriesEnum Category { get; set; } = CategoriesEnum.Unknown;
+            public Category Category { get; set; } = Category.Unknown;
 
             [MaxLength(500)]
             public string Description { get; set; }
@@ -31,7 +34,7 @@ namespace ChineseAuctionProject.DTOs
         {
             public string Name { get; set; }
             [Required]
-            public CategoriesEnum Category { get; set; } = CategoriesEnum.Unknown;
+            public Category Category { get; set; } = Category.Unknown;
 
             public string Description { get; set; }
             public int WinnersCount { get; set; }
@@ -47,7 +50,7 @@ namespace ChineseAuctionProject.DTOs
         {
             public int Id { get; set; }
             public required string Name { get; set; }
-            public CategoriesEnum Category { get; set; }
+            public Category Category { get; set; }
             public required string Description { get; set; }
             public int WinnersCount { get; set; }
             public int TicketPrice { get; set; }

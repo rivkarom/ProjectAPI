@@ -10,16 +10,28 @@ public class ApplicationDbContext : DbContext
     {
     }
     public DbSet<OrderManagement> OrderManagements { get; set; }
-
+    public DbSet<Category> Categories { get; set; }
     public DbSet<Donor> Donors { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Gift> Gifts { get; set; }
+    public DbSet<OrderManagement> OrderManagement { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
         // Category configuration
+        modelBuilder.Entity<Category>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.HasMany(e => e.Gift)
+                .WithOne(e => e.Category)
+                .HasForeignKey(e => e.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // Donor configuration
         modelBuilder.Entity<Donor>(entity =>
         {
             entity.HasKey(e => e.Id);

@@ -1,114 +1,117 @@
 using ChineseAuctionProject.DTOs;
 using ChineseAuctionProject.Interfaces;
 using StoreApi.Data;
+using static ChineseAuctionProject.DTOs.UserDTOs;
+using static ChineseAuctionProject.Models.User;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChineseAuctionProject.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
-        
+
         public UserRepository(ApplicationDbContext context)
         {
             _context = context;
         }
-
-        Task<UserDTOs.UserResponseDto> IUserRepository.CreateUserAsync(UserDTOs.UserCreateDTO createDto)
+        public async Task<IEnumerable<UserResponseDto>> GetAllUsersAsync()
         {
-            var user = new Models.User
-            {
-                UserName = createDto.UserName,
-                Email = createDto.Email,
-                PasswordHash = createDto.PasswordHash
-            };
-            _context.Users.Add(user);
-            _context.SaveChanges();
-            return Task.FromResult(new UserDTOs.UserResponseDto
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email
-            });
-        }
-
-        Task<bool> IUserRepository.DeleteUserAsync(string id)
-        {
-            var user = _context.Users.Find(id);
-            if (user == null)
-            {
-                return Task.FromResult(false);
-            }
-            _context.Users.Remove(user);
-            _context.SaveChanges();
-            return Task.FromResult(true);
-        }
-
-        Task<IEnumerable<UserDTOs.UserResponseDto>> IUserRepository.GetAllUsersAsync()
-        {
-            var users = _context.Users
-                .Select(user => new UserDTOs.UserResponseDto
+            return await _context.Users
+                .Select(user => new UserResponseDto
                 {
                     Id = user.Id,
                     UserName = user.UserName,
-                    Email = user.Email
+                    Email = user.Email,
+                    Phone = user.Phone
                 })
-                .ToList();
-            return Task.FromResult((IEnumerable<UserDTOs.UserResponseDto>)users);
+                .ToListAsync();
         }
-
-        Task<UserDTOs.UserResponseDto?> IUserRepository.GetUserByIdAsync(int id)
+        public async Task<UserResponseDto?> GetUserByIdAsync(int id)
         {
-            if (id.ToString() == null)
+            if (id <= 0)
             {
-                return Task.FromResult<UserDTOs.UserResponseDto?>(null);
+                return null;
             }
-            var user = _context.Users.Find(id.ToString());
+            var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
-                return Task.FromResult<UserDTOs.UserResponseDto?>(null);
+                return null;
             }
-            var userDto = new UserDTOs.UserResponseDto
+            return new UserResponseDto
             {
                 Id = user.Id,
                 UserName = user.UserName,
-                Email = user.Email
+                Email = user.Email,
+                Phone = user.Phone
             };
-            return Task.FromResult<UserDTOs.UserResponseDto?>(userDto);
         }
-
-        Task<UserDTOs.UserResponseDto?> IUserRepository.UpdateUserAsync(string id, UserDTOs.UserUpdateDTO updateDto)
+        public async Task<UserResponseDto> CreateUserAsync(UserCreateDTO createDto)
         {
-           if (id == null)
+            if (createDto == null)
             {
-                return Task.FromResult<UserDTOs.UserResponseDto?>(null);
+                throw new ArgumentNullException(nameof(createDto));
             }
-            var user = _context.Users.Find(id);
-            if (user == null)
+            var user = new Models.User
             {
-                return Task.FromResult<UserDTOs.UserResponseDto?>(null);
-            }
-            // Update fields if they are provided in the updateDto
-            if (!string.IsNullOrEmpty(updateDto.UserName))
-            {
-                user.UserName = updateDto.UserName;
-            }
-            if (!string.IsNullOrEmpty(updateDto.Email))
-            {
-                user.Email = updateDto.Email;
-            }
-            if (!string.IsNullOrEmpty(updateDto.PasswordHash))
-            {
-                user.PasswordHash = updateDto.PasswordHash;
-            }
-            _context.SaveChanges();
-            var userDto = new UserDTOs.UserResponseDto
+                Id = createDto.Id,
+                UserName = createDto.UserName,
+                Email = createDto.Email,
+                Phone = createDto.Phone,
+                HashPassword = createDto.Password,
+                IsAdmin = createDto.IsAdmin
+            };
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return new UserResponseDto
             {
                 Id = user.Id,
                 UserName = user.UserName,
-                Email = user.Email
+                Email = user.Email,
+                Phone = user.Phone
             };
-            return Task.FromResult<UserDTOs.UserResponseDto?>(userDto);
 
+        }
+        public async Task<UserResponseDto?> UpdateUserAsync(string id, UserUpdateDTO updateDto)
+        {
+            if (updateDto == null || id != updateDto.Id)
+            {
+                return null;
+            }
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return null;
+            }
+            user.UserName = updateDto.UserName;
+            user.Email = updateDto.Email;
+            user.Phone = updateDto.Phone;
+            user.IsAdmin = updateDto.IsAdmin;
+            await _context.SaveChangesAsync();
+
+            return new UserResponseDto
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                Phone = user.Phone
+            };
+        }
+        public async Task<bool> DeleteUserAsync(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return false;
+            }
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return false;
+            }
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
+
 }
