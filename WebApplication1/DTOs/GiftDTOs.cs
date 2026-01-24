@@ -16,8 +16,18 @@ namespace ChineseAuctionProject.DTOs
             [MaxLength(100)]
             public string Name { get; set; }
 
+<<<<<<< HEAD
             [Required]
             public Category Category { get; set; } = Category.Unknown;
+=======
+<<<<<<< HEAD
+            [Required]
+            public CategoriesEnum Category { get; set; } = CategoriesEnum.Unknown;
+=======
+            [Range(0, 4, ErrorMessage = "Category must be between 0 and 4.")]
+            public int Category { get; set; } = 0;
+>>>>>>> f5d10a757f302c62a92fe3d4656bbd2e93a6cd4a
+>>>>>>> 6b7f85f3296539ac17e47c116013183449554e88
 
             [MaxLength(500)]
             public string Description { get; set; }
@@ -33,8 +43,19 @@ namespace ChineseAuctionProject.DTOs
         public class GiftUpdateDTO
         {
             public string Name { get; set; }
+<<<<<<< HEAD
             [Required]
             public Category Category { get; set; } = Category.Unknown;
+=======
+<<<<<<< HEAD
+            [Required]
+            public CategoriesEnum Category { get; set; } = CategoriesEnum.Unknown;
+=======
+
+            [Range(0, 4, ErrorMessage = "Category must be between 0 and 4.")]
+            public int Category { get; set; } = 0;
+>>>>>>> f5d10a757f302c62a92fe3d4656bbd2e93a6cd4a
+>>>>>>> 6b7f85f3296539ac17e47c116013183449554e88
 
             public string Description { get; set; }
             public int WinnersCount { get; set; }
@@ -54,7 +75,15 @@ namespace ChineseAuctionProject.DTOs
             public required string Description { get; set; }
             public int WinnersCount { get; set; }
             public int TicketPrice { get; set; }
+<<<<<<< HEAD
             public required List<User> WinnersList { get; set; } = new();
+=======
+<<<<<<< HEAD
+            public required List<User> WinnersList { get; set; } = new();
+=======
+            public required List<String> WinnersList { get; set; } = new();
+>>>>>>> f5d10a757f302c62a92fe3d4656bbd2e93a6cd4a
+>>>>>>> 6b7f85f3296539ac17e47c116013183449554e88
 
             // include donor id in read DTO
             public string? DonorId { get; set; }

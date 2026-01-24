@@ -9,12 +9,27 @@ public class ApplicationDbContext : DbContext
         : base(options)
     {
     }
+<<<<<<< HEAD
     public DbSet<OrderManagement> OrderManagements { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Donor> Donors { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Gift> Gifts { get; set; }
     public DbSet<OrderManagement> OrderManagement { get; set; }
+=======
+<<<<<<< HEAD
+    public DbSet<OrderManagement> OrderManagements { get; set; }
+=======
+>>>>>>> f5d10a757f302c62a92fe3d4656bbd2e93a6cd4a
+
+    public DbSet<Donor> Donors { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Gift> Gifts { get; set; }
+<<<<<<< HEAD
+=======
+    public DbSet<OrderManagement> OrderManagement { get; set; }
+>>>>>>> f5d10a757f302c62a92fe3d4656bbd2e93a6cd4a
+>>>>>>> 6b7f85f3296539ac17e47c116013183449554e88
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
