@@ -1,10 +1,6 @@
 ﻿using ChineseAuctionProject.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations;
-
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 
 namespace ChineseAuctionProject.DTOs
 {
@@ -14,35 +10,37 @@ namespace ChineseAuctionProject.DTOs
         {
             [Required]
             [MaxLength(100)]
-            public string Name { get; set; }
+            public required string Name { get; set; }
 
             [Required]
-            public Category Category { get; set; } = Category.Unknown;
+            public int CategoryId { get; set; }
 
             [MaxLength(500)]
-            public string Description { get; set; }
+            public string Description { get; set; } = string.Empty;
+
             public int WinnersCount { get; set; } = 0;
 
             [Required]
             public int TicketPrice { get; set; }
 
-            // optional: supply donor Id when creating a gift
             public string? DonorId { get; set; }
         }
 
         public class GiftUpdateDTO
         {
-            public string Name { get; set; }
-            [Required]
-            public Category Category { get; set; } = Category.Unknown;
+            public required string Name { get; set; }
 
-            public string Description { get; set; }
+            [Required]
+            public int CategoryId { get; set; }
+
+            [MaxLength(500)]
+            public string Description { get; set; } = string.Empty;
+
             public int WinnersCount { get; set; }
 
             [Required]
             public int TicketPrice { get; set; }
 
-            // allow changing donor association
             public string? DonorId { get; set; }
         }
 
@@ -50,13 +48,11 @@ namespace ChineseAuctionProject.DTOs
         {
             public int Id { get; set; }
             public required string Name { get; set; }
-            public Category Category { get; set; }
+            public int CategoryId { get; set; }
+            public string? CategoryName { get; set; }
             public required string Description { get; set; }
             public int WinnersCount { get; set; }
             public int TicketPrice { get; set; }
-            public required List<User> WinnersList { get; set; } = new();
-
-            // include donor id in read DTO
             public string? DonorId { get; set; }
         }
     }

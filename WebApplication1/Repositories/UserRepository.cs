@@ -7,7 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ChineseAuctionProject.Repositories
 {
-    public class UserRepository : IUserRepository
+
+
+public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -27,17 +29,13 @@ namespace ChineseAuctionProject.Repositories
                 })
                 .ToListAsync();
         }
-        public async Task<UserResponseDto?> GetUserByIdAsync(int id)
+        public async Task<UserResponseDto?> GetUserByIdAsync(string id)
         {
-            if (id <= 0)
-            {
-                return null;
-            }
+            if (string.IsNullOrEmpty(id)) return null;
+
             var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return null;
-            }
+            if (user == null) return null;
+
             return new UserResponseDto
             {
                 Id = user.Id,

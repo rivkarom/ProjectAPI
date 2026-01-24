@@ -1,10 +1,10 @@
 ﻿using ChineseAuctionProject.Interfaces;
 using ChineseAuctionProject.Models;
-using static ChineseAuctionProject.DTOs.DonorDTOs;
+using ChineseAuctionProject.DTOs;
 
 namespace ChineseAuctionProject.Services
 {
-    public class DonorService:IDonorService
+    public class DonorService : IDonorService
     {
         private readonly IDonorRepository _donorRepository;
         private readonly ILogger<DonorService> _logger;
@@ -14,32 +14,25 @@ namespace ChineseAuctionProject.Services
             _donorRepository = donorRepository;
             _logger = logger;
         }
-        public async Task<IEnumerable<DonorResponseDto>> GetAllDonorsAsync()
+
+        public async Task<IEnumerable<DonorDTOs.DonorResponseDto>> GetAllDonorsAsync()
         {
-            var donors = await _donorRepository.GetAllDonorsAsync();
-            return donors.Select(MapToResponseDto);
+            return await _donorRepository.GetAllDonorsAsync();
         }
-        public async Task<DonorResponseDto?> GetDonorByIdAsync(int id)
+
+        public async Task<DonorDTOs.DonorResponseDto?> GetDonorByIdAsync(int id)
         {
             return await _donorRepository.GetDonorByIdAsync(id);
         }
-        public async Task<DonorResponseDto> CreateDonorAsync(DonorCreateDto createDto)
+
+        public async Task<DonorDTOs.DonorResponseDto> CreateDonorAsync(DonorDTOs.DonorCreateDto createDto)
         {
             return await _donorRepository.CreateDonorAsync(createDto);
         }
-        public async Task<DonorResponseDto?> UpdateDonorAsync(int id, DonorUpdateDto updateDto)
+
+        public async Task<DonorDTOs.DonorResponseDto?> UpdateDonorAsync(int id, DonorDTOs.DonorUpdateDto updateDto)
         {
             return await _donorRepository.UpdateDonorAsync(id, updateDto);
-        }
-        private static DonorResponseDto MapToResponseDto(Donor donor)
-        {
-            return new DonorResponseDto
-            {
-                Id = donor.Id,
-                Name = donor.Name,
-                Email = donor.Email,
-                Phone = donor.Phone,
-            };
         }
     }
 }

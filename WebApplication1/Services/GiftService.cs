@@ -27,12 +27,12 @@ namespace ChineseAuctionProject.Services;
         }
         public async Task<GiftDTOs.GiftReadDTO> CreateGiftAsync(DTOs.GiftDTOs.GiftCreateDTO createDto)
         {
-            var gift = new Gift
-                (nameof 
-                )
+            if(createDto == null)
+                throw new ArgumentNullException(nameof(createDto));
+            return await _giftRepository.CreateGiftAsync(createDto);
 
 
-        }
+    }
         public async Task<GiftDTOs.GiftReadDTO?> UpdateGiftAsync(int id, DTOs.GiftDTOs.GiftUpdateDTO updateDto)
         {
             return await _giftRepository.UpdateGiftAsync(id, updateDto);
@@ -42,4 +42,4 @@ namespace ChineseAuctionProject.Services;
             return await _giftRepository.DeleteGiftAsync(id);
         }
     }
-}
+

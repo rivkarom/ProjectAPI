@@ -1,14 +1,13 @@
-﻿using static ChineseAuctionProject.DTOs.OrderManegementDTOs;
-using static ChineseAuctionProject.DTOs.UserDTOs;
+﻿using static ChineseAuctionProject.DTOs.OrderManagementDTOs;
 
 namespace ChineseAuctionProject.Interfaces
 {
     public interface IOrderManagmentService
     {
-        Task<IEnumerable<UserResponseDto>> GetAllOrderManagementAsync();
-        Task<UserResponseDto?> GetOrderManagementByIdAsync(int id);
-        Task<UserResponseDto> CreateOrderManagementAsync(OrderManagmentCreateDto createDto);
-        Task<UserResponseDto?> UpdateOrderManagementAsync(int id, OrderManagmentUpdateDto updateDto);
+        Task<IEnumerable<OrderManagmentReadDto>> GetAllOrderManagementAsync();
+        Task<OrderManagmentReadDto?> GetOrderManagementByIdAsync(int id);
+        Task<OrderManagmentReadDto> CreateOrderManagementAsync(OrderManagmentCreateDto createDto);
+        Task<OrderManagmentReadDto?> UpdateOrderManagementAsync(int id, OrderManagmentUpdateDto updateDto);
         //Task<LoginResponseDto?> AuthenticateAsync(string email, string password);
 
     }

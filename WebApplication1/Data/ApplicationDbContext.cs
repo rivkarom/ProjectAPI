@@ -9,26 +9,26 @@ public class ApplicationDbContext : DbContext
         : base(options)
     {
     }
+
     public DbSet<OrderManagement> OrderManagements { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Donor> Donors { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Gift> Gifts { get; set; }
-    public DbSet<OrderManagement> OrderManagement { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        // Category configuration
-        modelBuilder.Entity<Category>(entity =>
+
+        // User configuration
+        modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
-            entity.Property(e => e.Description).HasMaxLength(500);
-            entity.HasMany(e => e.Gift)
-                .WithOne(e => e.Category)
-                .HasForeignKey(e => e.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict);
+            entity.Property(e => e.UserName).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Phone).IsRequired().HasMaxLength(10);
+            entity.Property(e => e.HashPassword).IsRequired();
+            entity.HasIndex(e => e.Email).IsUnique();
         });
 
         // Donor configuration
@@ -44,64 +44,48 @@ public class ApplicationDbContext : DbContext
                   .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // Product configuration
+        // Category configuration
+        modelBuilder.Entity<Category>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.Property(e => e.UpdatedAt).IsRequired();
+            entity.HasMany(e => e.Gifts)
+                  .WithOne(e => e.Category)
+                  .HasForeignKey(e => e.CategoryId)
+                  .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // Gift configuration
         modelBuilder.Entity<Gift>(entity =>
         {
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
             entity.Property(e => e.Description).HasMaxLength(500);
-            entity.Property(e => e.WinnersCount);
-            entity.Property(e => e.TicketPrice);
-            entity.HasMany(e => e.WinnersList)
-                  .WithMany(e => e.WonGifts);
+            entity.Property(e => e.WinnersCount).IsRequired();
+            entity.Property(e => e.TicketPrice).IsRequired();
+
+            entity.HasOne(e => e.Category)
+                  .WithMany(c => c.Gifts)
+                  .HasForeignKey(e => e.CategoryId)
+                  .OnDelete(DeleteBehavior.Restrict);
+
             entity.HasOne(e => e.Donor)
-                  .WithMany(e => e.DonationsList)
+                  .WithMany(d => d.DonationsList)
                   .HasForeignKey(e => e.DonorId)
                   .OnDelete(DeleteBehavior.SetNull);
         });
 
-        // User configuration
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-            entity.Property(e => e.UserName).IsRequired().HasMaxLength(100);
-            entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
-            entity.Property(e => e.Phone).HasMaxLength(10);
-            entity.HasIndex(e => e.Email).IsUnique();
-            entity.HasMany(e => e.OrdersList)
-                .WithOne(e => e.User)
-                .HasForeignKey(e => e.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
-        });
-
-        // Order configuration
+        // OrderManagement configuration
         modelBuilder.Entity<OrderManagement>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)");
-            entity.Property(e => e.Status).IsRequired().HasMaxLength(50);
-            entity.Property(e => e.ShippingAddress).IsRequired().HasMaxLength(500);
-            entity.HasMany(e => e.OrderItems)
-                .WithOne(e => e.Order)
-                .HasForeignKey(e => e.OrderId)
-                .OnDelete(DeleteBehavior.Cascade);
-        });
-
-        // OrderItem configuration
-        modelBuilder.Entity<OrderItem>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-            entity.HasMany(e => e.OrderItems)
-                .WithOne(e => e.Order)
-                .HasForeignKey(e => e.OrderId)
-                .OnDelete(DeleteBehavior.SetNull);
-
-            entity.Property(e => e.UnitPrice).HasColumnType("decimal(18,2)");
-            entity.Property(e => e.Subtotal).HasColumnType("decimal(18,2)");
-            entity.HasOne(e => e.Product)
-                .WithMany(e => e.OrderItems)
-                .HasForeignKey(e => e.ProductId)
-                .OnDelete(DeleteBehavior.Restrict);
+            entity.Property(e => e.UserId).IsRequired().HasMaxLength(9);
+            entity.Property(e => e.GiftId).IsRequired();
+            entity.Property(e => e.TicketsCount).IsRequired();
+            entity.Property(e => e.IsPaid).IsRequired();
         });
     }
 }

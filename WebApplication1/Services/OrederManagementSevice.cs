@@ -1,35 +1,50 @@
 ﻿using ChineseAuctionProject.Interfaces;
 using static ChineseAuctionProject.DTOs.OrderManagementDTOs;
-using static ChineseAuctionProject.DTOs.UserDTOs;
 
 namespace ChineseAuctionProject.Services
 {
-    public class OrderManagementService:IOrderManagmentService
+    public class OrderManagementService : IOrderManagmentService
     {
         private readonly IOrderManagementRepository _orderManagementRepository;
         private readonly ILogger<OrderManagementService> _logger;
+
         public OrderManagementService(IOrderManagementRepository orderManagementRepository, ILogger<OrderManagementService> logger)
         {
             _orderManagementRepository = orderManagementRepository;
             _logger = logger;
         }
-        public async Task<IEnumerable<UserResponseDto>> GetAllOrderManagementAsync()
+
+        public async Task<IEnumerable<OrderManagmentReadDto>> GetAllOrderManagementAsync()
         {
-
+            return await _orderManagementRepository.GetAllOrderManagementAsync();
         }
-        public async Task<UserResponseDto?> GetOrderManagementByIdAsync(int id)
+
+        public async Task<OrderManagmentReadDto?> GetOrderManagementByIdAsync(int id)
         {
-
+            if (id <= 0)
+            {
+                _logger.LogWarning("GetOrderManagementByIdAsync called with invalid id: {Id}", id);
+                return null;
+            }
+            return await _orderManagementRepository.GetOrderManagementByIdAsync(id);
         }
-        public async Task<UserResponseDto> CreateOrderManagementAsync(OrderManagmentCreateDto createDto)
+
+        public async Task<OrderManagmentReadDto> CreateOrderManagementAsync(OrderManagmentCreateDto createDto)
         {
-
+            if (createDto == null)
+            {
+                throw new ArgumentNullException(nameof(createDto));
+            }
+            return await _orderManagementRepository.CreateOrderManagementAsync(createDto);
         }
-        public async Task<UserResponseDto?> UpdateOrderManagementAsync(int id, OrderManagmentUpdateDto updateDto)
+
+        public async Task<OrderManagmentReadDto?> UpdateOrderManagementAsync(int id, OrderManagmentUpdateDto updateDto)
         {
-
+            if (updateDto == null || id <= 0)
+            {
+                return null;
+            }
+            return await _orderManagementRepository.UpdateOrderManagementAsync(id, updateDto);
         }
-        //public async Task<LoginResponseDto?> AuthenticateAsync(string email, string password){
-
     }
 }
