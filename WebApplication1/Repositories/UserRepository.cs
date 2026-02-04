@@ -44,6 +44,12 @@ public class UserRepository : IUserRepository
                 Phone = user.Phone
             };
         }
+
+        public async Task<Models.User?> GetByEmailAsync(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email)) return null;
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
         public async Task<UserResponseDto> CreateUserAsync(UserCreateDTO createDto)
         {
             if (createDto == null)

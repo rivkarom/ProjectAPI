@@ -40,5 +40,15 @@ namespace ChineseAuctionProject.Services
         {
             return await _userRepository.DeleteUserAsync(id);
         }
+
+        public async Task<ChineseAuctionProject.Models.User?> AuthenticateAsync(string email, string password)
+        {
+            var user = await _userRepository.GetByEmailAsync(email);
+            if (user == null) return null;
+
+            // NOTE: Password is stored as HashPassword; currently plain comparison
+            if (!string.Equals(user.HashPassword, password)) return null;
+            return user;
+        }
     }
 }
