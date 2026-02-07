@@ -24,6 +24,8 @@ namespace ChineseAuctionProject.DTOs
             public int TicketPrice { get; set; }
 
             public string? DonorId { get; set; }
+            [MaxLength(500)]
+            public string ImageUrl { get; set; } = string.Empty;
         }
 
         public class GiftUpdateDTO
@@ -42,6 +44,8 @@ namespace ChineseAuctionProject.DTOs
             public int TicketPrice { get; set; }
 
             public string? DonorId { get; set; }
+            [MaxLength(500)]
+            public string ImageUrl { get; set; } = string.Empty;
         }
 
         public class GiftReadDTO
@@ -54,6 +58,7 @@ namespace ChineseAuctionProject.DTOs
             public int WinnersCount { get; set; }
             public int TicketPrice { get; set; }
             public string? DonorId { get; set; }
+            public string ImageUrl { get; set; } = string.Empty;
         }
     }
 }

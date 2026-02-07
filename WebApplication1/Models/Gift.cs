@@ -13,6 +13,8 @@
         public int WinnersCount { get; set; }
         public int TicketPrice { get; set; }
 
+        public string ImageUrl { get; set; } = string.Empty;
+
         public string? DonorId { get; set; }
         public Donor? Donor { get; set; }  // Navigation property optional
     }

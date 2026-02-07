@@ -28,6 +28,7 @@ namespace ChineseAuctionProject.Repositories
                     Description = gift.Description,
                     WinnersCount = gift.WinnersCount,
                     TicketPrice = gift.TicketPrice,
+                    ImageUrl = gift.ImageUrl,
                     DonorId = gift.DonorId
                 })
                 .ToListAsync();
@@ -53,6 +54,7 @@ namespace ChineseAuctionProject.Repositories
                 Description = gift.Description,
                 WinnersCount = gift.WinnersCount,
                 TicketPrice = gift.TicketPrice,
+                ImageUrl = gift.ImageUrl,
                 DonorId = gift.DonorId
             };
         }
@@ -85,6 +87,7 @@ namespace ChineseAuctionProject.Repositories
                 Description = createDto.Description,
                 WinnersCount = createDto.WinnersCount,
                 TicketPrice = createDto.TicketPrice,
+                ImageUrl = createDto.ImageUrl,
                 DonorId = createDto.DonorId
             };
             _context.Gifts.Add(gift);
@@ -101,6 +104,7 @@ namespace ChineseAuctionProject.Repositories
                 Description = gift.Description,
                 WinnersCount = gift.WinnersCount,
                 TicketPrice = gift.TicketPrice,
+                ImageUrl = gift.ImageUrl,
                 DonorId = gift.DonorId
             };
         }
@@ -118,6 +122,7 @@ namespace ChineseAuctionProject.Repositories
             gift.Description = updateDto.Description;
             gift.WinnersCount = updateDto.WinnersCount;
             gift.TicketPrice = updateDto.TicketPrice;
+            gift.ImageUrl = updateDto.ImageUrl;
             gift.DonorId = updateDto.DonorId;
 
             await _context.SaveChangesAsync();
