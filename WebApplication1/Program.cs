@@ -87,6 +87,8 @@ builder.Services.AddScoped<IDonorRepository, DonorRepository>();
 builder.Services.AddScoped<IGiftRepository, GiftRepository>();
 builder.Services.AddScoped<IOrderManagementRepository, OrderManagementRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IWinnerRepository, WinnerRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 
 // Register Services
 builder.Services.AddScoped<IUserService, UserService>();
@@ -94,6 +96,9 @@ builder.Services.AddScoped<IDonorService, DonorService>();
 builder.Services.AddScoped<IGiftService, GiftService>();
 builder.Services.AddScoped<IOrderManagmentService, OrderManagementService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IWinnerService, WinnerService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 var app = builder.Build();
 

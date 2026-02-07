@@ -18,9 +18,26 @@ namespace ChineseAuctionProject.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GiftDTOs.GiftReadDTO>>> GetAll()
+        public async Task<ActionResult<IEnumerable<GiftDTOs.GiftReadDTO>>> GetAll([FromQuery] string? sortBy, [FromQuery] string? search)
         {
             var gifts = await _giftService.GetAllGiftsAsync();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                gifts = gifts.Where(g => g.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                                         g.DonorId?.Contains(search) == true);
+            }
+
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                gifts = sortBy.ToLower() switch
+                {
+                    "price" => gifts.OrderBy(g => g.TicketPrice),
+                    "category" => gifts.OrderBy(g => g.CategoryName),
+                    _ => gifts
+                };
+            }
+
             return Ok(gifts);
         }
 
@@ -65,6 +82,14 @@ namespace ChineseAuctionProject.Controllers
             var deleted = await _giftService.DeleteGiftAsync(id);
             if (!deleted) return NotFound();
             return NoContent();
+        }
+
+        [Authorize(Roles = "manager")]
+        [HttpPost("{id}/raffle")]
+        public async Task<ActionResult<IEnumerable<WinnerDTOs.WinnerReadDTO>>> ConductRaffle(int id)
+        {
+            var winners = await _giftService.ConductRaffleAsync(id);
+            return Ok(winners);
         }
     }
 }

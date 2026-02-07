@@ -11,6 +11,9 @@ namespace ChineseAuctionProject.DTOs
         [Required]
         [MaxLength(100)]
         public string Description { get; set; } = string.Empty;
+
+        [MaxLength(100)]
+        public string Icon { get; set; } = string.Empty;
     }
 
     public class CategoryUpdateDTO
@@ -20,6 +23,9 @@ namespace ChineseAuctionProject.DTOs
 
         [MaxLength(100)]
         public string? Description { get; set; }
+
+        [MaxLength(100)]
+        public string? Icon { get; set; }
     }
 
     public class CategoryResponsDto
@@ -27,6 +33,7 @@ namespace ChineseAuctionProject.DTOs
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public string Icon { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
     }
 }

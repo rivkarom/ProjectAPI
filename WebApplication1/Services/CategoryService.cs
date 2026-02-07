@@ -23,6 +23,7 @@ namespace ChineseAuctionProject.Services
                 Id = c.Id,
                 Name = c.Name,
                 Description = c.Description,
+                Icon = c.Icon,
                 CreatedAt = c.CreatedAt
             });
         }
@@ -40,6 +41,7 @@ namespace ChineseAuctionProject.Services
                 Id = category.Id,
                 Name = category.Name,
                 Description = category.Description,
+                Icon = category.Icon,
                 CreatedAt = category.CreatedAt
             };
         }
@@ -49,7 +51,8 @@ namespace ChineseAuctionProject.Services
             var category = new Category
             {
                 Name = categoryCreateDTO.Name,
-                Description = categoryCreateDTO.Description
+                Description = categoryCreateDTO.Description,
+                Icon = categoryCreateDTO.Icon
             };
 
             var created = await _categoryRepository.CreateAsync(category);
@@ -59,6 +62,7 @@ namespace ChineseAuctionProject.Services
                 Id = created.Id,
                 Name = created.Name,
                 Description = created.Description,
+                Icon = created.Icon,
                 CreatedAt = created.CreatedAt
             };
         }
@@ -81,6 +85,11 @@ namespace ChineseAuctionProject.Services
                 category.Description = categoryUpdateDTO.Description;
             }
 
+            if (!string.IsNullOrEmpty(categoryUpdateDTO.Icon))
+            {
+                category.Icon = categoryUpdateDTO.Icon;
+            }
+
             var updated = await _categoryRepository.UpdateAsync(category);
 
             return new CategoryResponsDto
@@ -88,6 +97,7 @@ namespace ChineseAuctionProject.Services
                 Id = updated!.Id,
                 Name = updated.Name,
                 Description = updated.Description,
+                Icon = updated.Icon,
                 CreatedAt = updated.CreatedAt
             };
         }

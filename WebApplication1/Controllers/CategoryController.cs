@@ -38,7 +38,7 @@ namespace ChineseAuctionProject.Controllers
             return CreatedAtAction(nameof(GetById), new { id = category.Id }, category);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}")]//אולי צריך למחוק את זה כי זה מיותר
         public async Task<ActionResult<CategoryResponsDto>> Update(int id, CategoryUpdateDTO updateDto)
         {
             var category = await _categoryService.categoryUpdateDTO(id, updateDto);

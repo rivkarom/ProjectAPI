@@ -12,8 +12,7 @@ namespace ChineseAuctionProject.DTOs
             [MaxLength(100)]
             public required string Name { get; set; }
 
-            [Required]
-            public int CategoryId { get; set; }
+            public int CategoryId { get; set; } = 2;  // ברירת מחדל, לא חובה
 
             [MaxLength(500)]
             public string Description { get; set; } = string.Empty;
@@ -23,14 +22,16 @@ namespace ChineseAuctionProject.DTOs
             [Required]
             public int TicketPrice { get; set; }
 
-            public string? DonorId { get; set; }
+            public string? DonorId { get; set; } = "329084172";  // ברירת מחדל
+            [MaxLength(500)]
+            public string ImageUrl { get; set; } = string.Empty;
         }
 
         public class GiftUpdateDTO
         {
             public required string Name { get; set; }
 
-            [Required]
+            
             public int CategoryId { get; set; }
 
             [MaxLength(500)]
@@ -42,6 +43,8 @@ namespace ChineseAuctionProject.DTOs
             public int TicketPrice { get; set; }
 
             public string? DonorId { get; set; }
+            [MaxLength(500)]
+            public string ImageUrl { get; set; } = string.Empty;
         }
 
         public class GiftReadDTO
@@ -54,6 +57,10 @@ namespace ChineseAuctionProject.DTOs
             public int WinnersCount { get; set; }
             public int TicketPrice { get; set; }
             public string? DonorId { get; set; }
+            public string ImageUrl { get; set; } = string.Empty;
+            public bool IsRaffled { get; set; }
+            public DateTime? RaffleDate { get; set; }
+            public List<WinnerDTOs.WinnerReadDTO> Winners { get; set; } = new();
         }
     }
 }

@@ -18,11 +18,14 @@ namespace ChineseAuctionProject.Repositories
         public async Task<IEnumerable<OrderManagmentReadDto>> GetAllOrderManagementAsync()
         {
             return await _context.OrderManagements
+                .Include(o => o.Gift)
                 .Select(order => new OrderManagmentReadDto
                 {
                     GiftId = order.GiftId,
                     TicketsCount = order.TicketsCount,
-                    IsPaid = order.IsPaid
+                    IsPaid = order.IsPaid,
+                    GiftName = order.Gift != null ? order.Gift.Name : string.Empty,
+                    TicketPrice = order.Gift != null ? order.Gift.TicketPrice : 0
                 })
                 .ToListAsync();
         }
@@ -31,11 +34,14 @@ namespace ChineseAuctionProject.Repositories
         {
             return await _context.OrderManagements
                  .Where(order => order.Id == id)
+                 .Include(o => o.Gift)
                  .Select(order => new OrderManagmentReadDto
                  {
                      GiftId = order.GiftId,
                      TicketsCount = order.TicketsCount,
-                     IsPaid = order.IsPaid
+                     IsPaid = order.IsPaid,
+                     GiftName = order.Gift != null ? order.Gift.Name : string.Empty,
+                     TicketPrice = order.Gift != null ? order.Gift.TicketPrice : 0
                  })
                  .FirstOrDefaultAsync();
         }
@@ -51,11 +57,16 @@ namespace ChineseAuctionProject.Repositories
             };
             _context.OrderManagements.Add(order);
             await _context.SaveChangesAsync();
+
+            await _context.Entry(order).Reference(o => o.Gift).LoadAsync();
+
             return new OrderManagmentReadDto
             {
                 GiftId = order.GiftId,
                 TicketsCount = order.TicketsCount,
-                IsPaid = order.IsPaid
+                IsPaid = order.IsPaid,
+                GiftName = order.Gift?.Name ?? string.Empty,
+                TicketPrice = order.Gift?.TicketPrice ?? 0
             };
         }
 
@@ -89,7 +100,9 @@ namespace ChineseAuctionProject.Repositories
             {
                 GiftId = order.GiftId,
                 TicketsCount = order.TicketsCount,
-                IsPaid = order.IsPaid
+                IsPaid = order.IsPaid,
+                GiftName = order.Gift?.Name ?? string.Empty,
+                TicketPrice = order.Gift?.TicketPrice ?? 0
             };
         }
     }

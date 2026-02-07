@@ -7,5 +7,8 @@
         public int GiftId { get; set; }
         public int TicketsCount { get; set; }
         public bool IsPaid { get; set; }
+
+        public User? User { get; set; }
+        public Gift? Gift { get; set; }
     }
 }

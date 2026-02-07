@@ -18,9 +18,17 @@ namespace ChineseAuctionProject.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DonorResponseDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<DonorResponseDto>>> GetAll([FromQuery] string? filterBy)
         {
             var donors = await _donorService.GetAllDonorsAsync();
+
+            if (!string.IsNullOrEmpty(filterBy))
+            {
+                donors = donors.Where(d => d.Name.Contains(filterBy, StringComparison.OrdinalIgnoreCase) ||
+                                           d.Email.Contains(filterBy, StringComparison.OrdinalIgnoreCase) ||
+                                           d.Donations.Any(g => g.Name.Contains(filterBy, StringComparison.OrdinalIgnoreCase)));
+            }
+
             return Ok(donors);
         }
 

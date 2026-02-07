@@ -10,5 +10,6 @@ namespace ChineseAuctionProject.Interfaces
         Task<GiftDTOs.GiftReadDTO> CreateGiftAsync(GiftDTOs.GiftCreateDTO createDto);
         Task<GiftDTOs.GiftReadDTO?> UpdateGiftAsync(int id, GiftDTOs.GiftUpdateDTO updateDto);
         Task<bool> DeleteGiftAsync(int id);
+        Task<bool> ConductRaffleAsync(int giftId);
     }
 }

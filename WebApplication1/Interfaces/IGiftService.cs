@@ -1,4 +1,6 @@
 ﻿using ChineseAuctionProject.DTOs;
+using static ChineseAuctionProject.DTOs.WinnerDTOs;
+
 namespace ChineseAuctionProject.Interfaces
 {
     public interface IGiftService
@@ -9,5 +11,6 @@ namespace ChineseAuctionProject.Interfaces
         Task<GiftDTOs.GiftReadDTO> CreateGiftAsync(DTOs.GiftDTOs.GiftCreateDTO createDto);
         Task<GiftDTOs.GiftReadDTO?> UpdateGiftAsync(int id, DTOs.GiftDTOs.GiftUpdateDTO updateDto);
         Task<bool> DeleteGiftAsync(int id);
+        Task<IEnumerable<WinnerReadDTO>> ConductRaffleAsync(int giftId);
     }
 }

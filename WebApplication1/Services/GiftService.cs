@@ -1,16 +1,21 @@
 ﻿using ChineseAuctionProject.DTOs;
 using ChineseAuctionProject.Interfaces;
 using System.Linq;
+using static ChineseAuctionProject.DTOs.WinnerDTOs;
 
 namespace ChineseAuctionProject.Services;
     public class GiftService:IGiftService
     {
         private readonly IGiftRepository _giftRepository;
+        private readonly IWinnerRepository _winnerRepository;
+        private readonly IEmailService _emailService;
         private readonly ILogger<GiftService> _logger;
 
-        public GiftService(IGiftRepository giftRepository, ILogger<GiftService> logger)
+        public GiftService(IGiftRepository giftRepository, IWinnerRepository winnerRepository, IEmailService emailService, ILogger<GiftService> logger)
         {
             _giftRepository = giftRepository;
+            _winnerRepository = winnerRepository;
+            _emailService = emailService;
             _logger = logger;
         }
         public async Task<IEnumerable<GiftDTOs.GiftReadDTO>> GetAllGiftsAsync()
@@ -50,6 +55,28 @@ namespace ChineseAuctionProject.Services;
         public async Task<bool> DeleteGiftAsync(int id)
         {
             return await _giftRepository.DeleteGiftAsync(id);
+        }
+
+        public async Task<IEnumerable<WinnerReadDTO>> ConductRaffleAsync(int giftId)
+        {
+            var success = await _giftRepository.ConductRaffleAsync(giftId);
+            if (!success) return Enumerable.Empty<WinnerReadDTO>();
+
+            var winners = await _winnerRepository.GetWinnersByGiftIdAsync(giftId);
+
+            foreach (var winner in winners)
+            {
+                try
+                {
+                    await _emailService.SendWinnerNotificationAsync(winner.UserEmail, winner.UserName, winner.GiftName);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, $"Failed to send email to {winner.UserEmail}");
+                }
+            }
+
+            return winners;
         }
     }
 

@@ -18,9 +18,20 @@ namespace ChineseAuctionProject.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OrderManagmentReadDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<OrderManagmentReadDto>>> GetAll([FromQuery] string? sortBy)
         {
             var orders = await _orderService.GetAllOrderManagementAsync();
+
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                orders = sortBy.ToLower() switch
+                {
+                    "expensive" => orders.OrderByDescending(o => o.TicketPrice),
+                    "purchased" => orders.OrderByDescending(o => o.TicketsCount),
+                    _ => orders
+                };
+            }
+
             return Ok(orders);
         }
 

@@ -15,6 +15,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Donor> Donors { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Gift> Gifts { get; set; }
+    public DbSet<Winner> Winners { get; set; }
+    public DbSet<Cart> Carts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -24,11 +26,41 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).HasMaxLength(9);
             entity.Property(e => e.UserName).IsRequired().HasMaxLength(100);
             entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
             entity.Property(e => e.Phone).IsRequired().HasMaxLength(10);
             entity.Property(e => e.HashPassword).IsRequired();
             entity.HasIndex(e => e.Email).IsUnique();
+        });
+
+        // Seed data for testing
+        modelBuilder.Entity<User>().HasData(new User
+        {
+            Id = "123456789",
+            UserName = "Manager",
+            Email = "y@gmail.com",
+            Phone = "0501234567",
+            HashPassword = "יהודית", // Note: In production, hash passwords!
+            IsAdmin = true
+        });
+
+        modelBuilder.Entity<Category>().HasData(new Category
+        {
+            Id = 2,
+            Name = "קטגוריה ברירת מחדל",
+            Description = "קטגוריה דיפולטיבית",
+            Icon = "default.png",
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        });
+
+        modelBuilder.Entity<Donor>().HasData(new Donor
+        {
+            Id = "329084172",
+            Name = "תורם ברירת מחדל",
+            Email = "donor@example.com",
+            Phone = "0501234567"
         });
 
         // Donor configuration
@@ -86,6 +118,45 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.GiftId).IsRequired();
             entity.Property(e => e.TicketsCount).IsRequired();
             entity.Property(e => e.IsPaid).IsRequired();
+        });
+
+        // Winner configuration
+        modelBuilder.Entity<Winner>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.GiftId).IsRequired();
+            entity.Property(e => e.UserId).IsRequired().HasMaxLength(9);
+            entity.Property(e => e.WonAt).IsRequired();
+
+            entity.HasOne(e => e.Gift)
+                  .WithMany(g => g.Winners)
+                  .HasForeignKey(e => e.GiftId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.User)
+                  .WithMany()
+                  .HasForeignKey(e => e.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // Cart configuration
+        modelBuilder.Entity<Cart>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.UserId).IsRequired().HasMaxLength(9);
+            entity.Property(e => e.GiftId).IsRequired();
+            entity.Property(e => e.TicketsCount).IsRequired();
+            entity.Property(e => e.IsConfirmed).IsRequired();
+
+            entity.HasOne(e => e.User)
+                  .WithMany()
+                  .HasForeignKey(e => e.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.Gift)
+                  .WithMany()
+                  .HasForeignKey(e => e.GiftId)
+                  .OnDelete(DeleteBehavior.Cascade);
         });
     }
 }
