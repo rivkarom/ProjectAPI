@@ -57,6 +57,25 @@ namespace ChineseAuctionProject.Repositories
             };
         }
 
+        public async Task<IEnumerable<GiftDTOs.GiftReadDTO>> GetGiftsByCategoryAsync(int categoryId)
+        {
+            return await _context.Gifts
+                .Where(g => g.CategoryId == categoryId)
+                .Include(g => g.Category)
+                .Select(gift => new GiftDTOs.GiftReadDTO
+                {
+                    Id = gift.Id,
+                    Name = gift.Name,
+                    CategoryId = gift.CategoryId,
+                    CategoryName = gift.Category != null ? gift.Category.Name : null,
+                    Description = gift.Description,
+                    WinnersCount = gift.WinnersCount,
+                    TicketPrice = gift.TicketPrice,
+                    DonorId = gift.DonorId
+                })
+                .ToListAsync();
+        }
+
         public async Task<GiftDTOs.GiftReadDTO> CreateGiftAsync(GiftDTOs.GiftCreateDTO createDto)
         {
             var gift = new Gift

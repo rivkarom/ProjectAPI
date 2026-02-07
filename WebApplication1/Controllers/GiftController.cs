@@ -33,6 +33,14 @@ namespace ChineseAuctionProject.Controllers
             return Ok(gift);
         }
 
+        [AllowAnonymous]
+        [HttpGet("category/{categoryId}")]
+        public async Task<ActionResult<IEnumerable<GiftDTOs.GiftReadDTO>>> GetByCategory(int categoryId)
+        {
+            var gifts = await _giftService.GetGiftsByCategoryAsync(categoryId);
+            return Ok(gifts);
+        }
+
         [Authorize(Roles = "manager")]
         [HttpPost]
         public async Task<ActionResult<GiftDTOs.GiftReadDTO>> Create(GiftDTOs.GiftCreateDTO createDto)

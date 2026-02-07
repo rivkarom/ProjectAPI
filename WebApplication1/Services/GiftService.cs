@@ -1,5 +1,6 @@
 ﻿using ChineseAuctionProject.DTOs;
 using ChineseAuctionProject.Interfaces;
+using System.Linq;
 
 namespace ChineseAuctionProject.Services;
     public class GiftService:IGiftService
@@ -15,6 +16,15 @@ namespace ChineseAuctionProject.Services;
         public async Task<IEnumerable<GiftDTOs.GiftReadDTO>> GetAllGiftsAsync()
         {
             return await _giftRepository.GetAllGiftsAsync();
+        }
+        public async Task<IEnumerable<GiftDTOs.GiftReadDTO>> GetGiftsByCategoryAsync(int categoryId)
+        {
+            if (categoryId <= 0)
+            {
+                return Enumerable.Empty<GiftDTOs.GiftReadDTO>();
+            }
+
+            return await _giftRepository.GetGiftsByCategoryAsync(categoryId);
         }
         public async Task<GiftDTOs.GiftReadDTO?> GetGiftByIdAsync(int id)//יחזיר נל אם לא קיים
         {
