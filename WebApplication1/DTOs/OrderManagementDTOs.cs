@@ -35,7 +35,8 @@ namespace ChineseAuctionProject.DTOs
             public int TicketsCount { get; set; }
             public bool IsPaid { get; set; }
             public string GiftName { get; set; } = string.Empty;
-            public int TicketPrice { get; set; }
+            public decimal TicketPrice { get; set; }
+            public string UserName { get; set; } = string.Empty;
         }
     }
 }

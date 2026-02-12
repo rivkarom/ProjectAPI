@@ -57,6 +57,7 @@ namespace ChineseAuctionProject.DTOs
             public int WinnersCount { get; set; }
             public int TicketPrice { get; set; }
             public string? DonorId { get; set; }
+            public string? DonorName { get; set; }
             public string ImageUrl { get; set; } = string.Empty;
             public bool IsRaffled { get; set; }
             public DateTime? RaffleDate { get; set; }

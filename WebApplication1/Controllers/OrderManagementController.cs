@@ -57,5 +57,12 @@ namespace ChineseAuctionProject.Controllers
             if (order == null) return NotFound();
             return Ok(order);
         }
+
+        [HttpGet("gift/{giftId}")]
+        public async Task<ActionResult<IEnumerable<OrderManagmentReadDto>>> GetByGiftId(int giftId)
+        {
+            var orders = await _orderService.GetOrdersByGiftIdAsync(giftId);
+            return Ok(orders);
+        }
     }
 }

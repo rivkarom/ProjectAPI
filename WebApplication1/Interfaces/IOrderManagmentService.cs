@@ -8,7 +8,7 @@ namespace ChineseAuctionProject.Interfaces
         Task<OrderManagmentReadDto?> GetOrderManagementByIdAsync(int id);
         Task<OrderManagmentReadDto> CreateOrderManagementAsync(OrderManagmentCreateDto createDto);
         Task<OrderManagmentReadDto?> UpdateOrderManagementAsync(int id, OrderManagmentUpdateDto updateDto);
+        Task<IEnumerable<OrderManagmentReadDto>> GetOrdersByGiftIdAsync(int giftId);
         //Task<LoginResponseDto?> AuthenticateAsync(string email, string password);
-
     }
 }

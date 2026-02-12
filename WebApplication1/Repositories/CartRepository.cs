@@ -57,26 +57,89 @@ namespace ChineseAuctionProject.Repositories
                 throw new InvalidOperationException("Cannot add raffled gift to cart");
             }
 
-            var cart = new Cart
+            var existing = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == createDto.UserId && c.GiftId == createDto.GiftId && !c.IsConfirmed);
+            if (existing != null)
             {
-                UserId = createDto.UserId,
-                GiftId = createDto.GiftId,
-                TicketsCount = createDto.TicketsCount,
-                IsConfirmed = false
-            };
-            _context.Carts.Add(cart);
-            await _context.SaveChangesAsync();
-
-            await _context.Entry(cart).Reference(c => c.Gift).LoadAsync();
-
-            return new CartReadDTO
+                existing.TicketsCount += createDto.TicketsCount;
+                await _context.SaveChangesAsync();
+                await _context.Entry(existing).Reference(c => c.Gift).LoadAsync();
+                return new CartReadDTO
+                {
+                    Id = existing.Id,
+                    GiftId = existing.GiftId,
+                    GiftName = existing.Gift?.Name ?? string.Empty,
+                    TicketsCount = existing.TicketsCount,
+                    IsConfirmed = existing.IsConfirmed
+                };
+            }
+            else
             {
-                Id = cart.Id,
-                GiftId = cart.GiftId,
-                GiftName = cart.Gift?.Name ?? string.Empty,
-                TicketsCount = cart.TicketsCount,
-                IsConfirmed = cart.IsConfirmed
-            };
+                var cart = new Cart
+                {
+                    UserId = createDto.UserId,
+                    GiftId = createDto.GiftId,
+                    TicketsCount = createDto.TicketsCount,
+                    IsConfirmed = false
+                };
+                _context.Carts.Add(cart);
+                await _context.SaveChangesAsync();
+
+                await _context.Entry(cart).Reference(c => c.Gift).LoadAsync();
+
+                return new CartReadDTO
+                {
+                    Id = cart.Id,
+                    GiftId = cart.GiftId,
+                    GiftName = cart.Gift?.Name ?? string.Empty,
+                    TicketsCount = cart.TicketsCount,
+                    IsConfirmed = cart.IsConfirmed
+                };
+            }
+        }
+
+        public async Task<CartReadDTO> AddToCartAsync(string userId, int giftId, int quantity)
+        {
+            var gift = await _context.Gifts.FindAsync(giftId);
+            if (gift == null || gift.IsRaffled)
+            {
+                throw new InvalidOperationException("Cannot add raffled gift to cart");
+            }
+
+            var existing = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == userId && c.GiftId == giftId && !c.IsConfirmed);
+            if (existing != null)
+            {
+                existing.TicketsCount += quantity;
+                await _context.SaveChangesAsync();
+                await _context.Entry(existing).Reference(c => c.Gift).LoadAsync();
+                return new CartReadDTO
+                {
+                    Id = existing.Id,
+                    GiftId = existing.GiftId,
+                    GiftName = existing.Gift?.Name ?? string.Empty,
+                    TicketsCount = existing.TicketsCount
+                };
+            }
+            else
+            {
+                var cartItem = new Cart
+                {
+                    UserId = userId,
+                    GiftId = giftId,
+                    TicketsCount = quantity
+                };
+                _context.Carts.Add(cartItem);
+                await _context.SaveChangesAsync();
+
+                await _context.Entry(cartItem).Reference(c => c.Gift).LoadAsync();
+
+                return new CartReadDTO
+                {
+                    Id = cartItem.Id,
+                    GiftId = cartItem.GiftId,
+                    GiftName = cartItem.Gift?.Name ?? string.Empty,
+                    TicketsCount = cartItem.TicketsCount
+                };
+            }
         }
 
         public async Task<CartReadDTO?> UpdateCartItemAsync(int id, CartUpdateDTO updateDto)

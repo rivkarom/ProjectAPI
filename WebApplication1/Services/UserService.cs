@@ -1,5 +1,6 @@
 ﻿using ChineseAuctionProject.Interfaces;
 using static ChineseAuctionProject.DTOs.UserDTOs;
+using Microsoft.AspNetCore.Identity;
 
 namespace ChineseAuctionProject.Services
 {
@@ -8,12 +9,14 @@ namespace ChineseAuctionProject.Services
         private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
         private readonly ILogger<UserService> _logger;
+        private readonly IPasswordHasher<ChineseAuctionProject.Models.User> _passwordHasher;
 
-        public UserService(IUserRepository userRepository, ILogger<UserService> logger, IConfiguration configuration)
+        public UserService(IUserRepository userRepository, ILogger<UserService> logger, IConfiguration configuration, IPasswordHasher<ChineseAuctionProject.Models.User> passwordHasher)
         {
             _userRepository = userRepository;
             _logger = logger;
             _configuration = configuration;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task<IEnumerable<UserResponseDto>> GetAllUsersAsync()
@@ -28,6 +31,8 @@ namespace ChineseAuctionProject.Services
 
         public async Task<UserResponseDto> CreateUserAsync(UserCreateDTO createDto)
         {
+            var hashedPassword = _passwordHasher.HashPassword(new ChineseAuctionProject.Models.User(), createDto.Password);
+            createDto.Password = hashedPassword;
             return await _userRepository.CreateUserAsync(createDto);
         }
 
@@ -46,9 +51,9 @@ namespace ChineseAuctionProject.Services
             var user = await _userRepository.GetByEmailAsync(email);
             if (user == null) return null;
 
-            // NOTE: Password is stored as HashPassword; currently plain comparison
-            if (!string.Equals(user.HashPassword, password)) return null;
-            return user;
+            var result = _passwordHasher.VerifyHashedPassword(user, user.HashPassword, password);
+            if (result == PasswordVerificationResult.Success) return user;
+            return null;
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StoreApi.Data;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 // הוספת שירות ה-CORS
@@ -99,6 +100,7 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IWinnerService, WinnerService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IPasswordHasher<ChineseAuctionProject.Models.User>, PasswordHasher<ChineseAuctionProject.Models.User>>();
 
 var app = builder.Build();
 

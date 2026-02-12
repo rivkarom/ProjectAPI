@@ -37,5 +37,13 @@ namespace ChineseAuctionProject.Controllers
             var revenue = await _winnerService.GetTotalRevenueAsync();
             return Ok(revenue);
         }
+
+        [HttpPost("{id}/send-email")]
+        public async Task<IActionResult> SendWinnerEmail(int id)
+        {
+            var success = await _winnerService.SendWinnerEmailAsync(id);
+            if (!success) return NotFound();
+            return Ok();
+        }
     }
 }

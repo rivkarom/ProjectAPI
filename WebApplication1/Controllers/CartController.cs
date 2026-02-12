@@ -39,6 +39,16 @@ namespace ChineseAuctionProject.Controllers
             return CreatedAtAction(nameof(GetCart), item);
         }
 
+        [HttpPost("add/{giftId}/{quantity}")]
+        public async Task<ActionResult<CartReadDTO>> AddToCart(int giftId, int quantity)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId)) return Unauthorized();
+
+            var item = await _cartService.AddToCartAsync(userId, giftId, quantity);
+            return CreatedAtAction(nameof(GetCart), item);
+        }
+
         [HttpPut("{id}")]
         public async Task<ActionResult<CartReadDTO>> UpdateCartItem(int id, CartUpdateDTO updateDto)
         {

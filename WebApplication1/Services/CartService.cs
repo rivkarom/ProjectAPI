@@ -29,6 +29,11 @@ namespace ChineseAuctionProject.Services
             return await _cartRepository.AddToCartAsync(createDto);
         }
 
+        public async Task<CartReadDTO> AddToCartAsync(string userId, int giftId, int quantity)
+        {
+            return await _cartRepository.AddToCartAsync(userId, giftId, quantity);
+        }
+
         public async Task<CartReadDTO?> UpdateCartItemAsync(int id, CartUpdateDTO updateDto)
         {
             return await _cartRepository.UpdateCartItemAsync(id, updateDto);

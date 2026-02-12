@@ -19,6 +19,7 @@ namespace ChineseAuctionProject.Repositories
         {
             var gifts = await _context.Gifts
                 .Include(g => g.Category)
+                .Include(g => g.Donor)
                 .Include(g => g.Winners)
                     .ThenInclude(w => w.User)
                 .Select(gift => new GiftDTOs.GiftReadDTO
@@ -32,6 +33,7 @@ namespace ChineseAuctionProject.Repositories
                     TicketPrice = gift.TicketPrice,
                     ImageUrl = gift.ImageUrl,
                     DonorId = gift.DonorId,
+                    DonorName = gift.Donor != null ? gift.Donor.Name : string.Empty,
                     IsRaffled = gift.IsRaffled,
                     RaffleDate = gift.RaffleDate,
                     Winners = gift.Winners.Select(w => new WinnerDTOs.WinnerReadDTO
@@ -54,6 +56,7 @@ namespace ChineseAuctionProject.Repositories
         {
             var gift = await _context.Gifts
                 .Include(g => g.Category)
+                .Include(g => g.Donor)
                 .Include(g => g.Winners)
                     .ThenInclude(w => w.User)
                 .FirstOrDefaultAsync(g => g.Id == id);
@@ -74,6 +77,7 @@ namespace ChineseAuctionProject.Repositories
                 TicketPrice = gift.TicketPrice,
                 ImageUrl = gift.ImageUrl,
                 DonorId = gift.DonorId,
+                DonorName = gift.Donor != null ? gift.Donor.Name : string.Empty,
                 IsRaffled = gift.IsRaffled,
                 RaffleDate = gift.RaffleDate,
                 Winners = gift.Winners.Select(w => new WinnerDTOs.WinnerReadDTO
@@ -94,6 +98,7 @@ namespace ChineseAuctionProject.Repositories
             var gifts = await _context.Gifts
                 .Where(g => g.CategoryId == categoryId)
                 .Include(g => g.Category)
+                .Include(g => g.Donor)
                 .Include(g => g.Winners)
                     .ThenInclude(w => w.User)
                 .Select(gift => new GiftDTOs.GiftReadDTO
@@ -106,6 +111,7 @@ namespace ChineseAuctionProject.Repositories
                     WinnersCount = gift.WinnersCount,
                     TicketPrice = gift.TicketPrice,
                     DonorId = gift.DonorId,
+                    DonorName = gift.Donor != null ? gift.Donor.Name : string.Empty,
                     IsRaffled = gift.IsRaffled,
                     RaffleDate = gift.RaffleDate,
                     Winners = gift.Winners.Select(w => new WinnerDTOs.WinnerReadDTO

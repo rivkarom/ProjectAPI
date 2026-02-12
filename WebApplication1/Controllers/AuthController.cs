@@ -5,6 +5,7 @@ using ChineseAuctionProject.DTOs;
 using ChineseAuctionProject.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
 
 namespace ChineseAuctionProject.Controllers
 {
@@ -67,6 +68,16 @@ namespace ChineseAuctionProject.Controllers
             return CreatedAtAction(nameof(Login), new { email = created.Email }, token);
         }
 
+        [HttpPost("hash")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        public IActionResult HashPassword([FromBody] HashRequest request)
+        {
+            if (request == null || string.IsNullOrEmpty(request.Password)) return BadRequest("Password is required");
+            var hasher = new PasswordHasher<ChineseAuctionProject.Models.User>();
+            var hash = hasher.HashPassword(new ChineseAuctionProject.Models.User(), request.Password);
+            return Ok(hash);
+        }
+
         private AuthResponseDto GenerateToken(ChineseAuctionProject.Models.User user)
         {
             var jwtSection = _configuration.GetSection("Jwt");
@@ -114,5 +125,10 @@ namespace ChineseAuctionProject.Controllers
                 IsAdmin = user.IsAdmin
             };
         }
+    }
+
+    public class HashRequest
+    {
+        public string Password { get; set; }
     }
 }

@@ -46,5 +46,15 @@ namespace ChineseAuctionProject.Services
             }
             return await _orderManagementRepository.UpdateOrderManagementAsync(id, updateDto);
         }
+
+        public async Task<IEnumerable<OrderManagmentReadDto>> GetOrdersByGiftIdAsync(int giftId)
+        {
+            if (giftId <= 0)
+            {
+                _logger.LogWarning("GetOrdersByGiftIdAsync called with invalid giftId: {GiftId}", giftId);
+                return Enumerable.Empty<OrderManagmentReadDto>();
+            }
+            return await _orderManagementRepository.GetOrdersByGiftIdAsync(giftId);
+        }
     }
 }

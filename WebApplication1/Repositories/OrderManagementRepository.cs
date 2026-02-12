@@ -19,13 +19,15 @@ namespace ChineseAuctionProject.Repositories
         {
             return await _context.OrderManagements
                 .Include(o => o.Gift)
+                .Include(o => o.User)
                 .Select(order => new OrderManagmentReadDto
                 {
                     GiftId = order.GiftId,
                     TicketsCount = order.TicketsCount,
                     IsPaid = order.IsPaid,
                     GiftName = order.Gift != null ? order.Gift.Name : string.Empty,
-                    TicketPrice = order.Gift != null ? order.Gift.TicketPrice : 0
+                    TicketPrice = order.Gift != null ? order.Gift.TicketPrice : 0,
+                    UserName = order.User != null ? order.User.UserName : string.Empty
                 })
                 .ToListAsync();
         }
@@ -35,13 +37,15 @@ namespace ChineseAuctionProject.Repositories
             return await _context.OrderManagements
                  .Where(order => order.Id == id)
                  .Include(o => o.Gift)
+                 .Include(o => o.User)
                  .Select(order => new OrderManagmentReadDto
                  {
                      GiftId = order.GiftId,
                      TicketsCount = order.TicketsCount,
                      IsPaid = order.IsPaid,
                      GiftName = order.Gift != null ? order.Gift.Name : string.Empty,
-                     TicketPrice = order.Gift != null ? order.Gift.TicketPrice : 0
+                     TicketPrice = order.Gift != null ? order.Gift.TicketPrice : 0,
+                     UserName = order.User != null ? order.User.UserName : string.Empty
                  })
                  .FirstOrDefaultAsync();
         }
@@ -59,6 +63,7 @@ namespace ChineseAuctionProject.Repositories
             await _context.SaveChangesAsync();
 
             await _context.Entry(order).Reference(o => o.Gift).LoadAsync();
+            await _context.Entry(order).Reference(o => o.User).LoadAsync();
 
             return new OrderManagmentReadDto
             {
@@ -66,7 +71,8 @@ namespace ChineseAuctionProject.Repositories
                 TicketsCount = order.TicketsCount,
                 IsPaid = order.IsPaid,
                 GiftName = order.Gift?.Name ?? string.Empty,
-                TicketPrice = order.Gift?.TicketPrice ?? 0
+                TicketPrice = order.Gift?.TicketPrice ?? 0,
+                UserName = order.User != null ? order.User.UserName : string.Empty
             };
         }
 
@@ -96,14 +102,35 @@ namespace ChineseAuctionProject.Repositories
             order.IsPaid = updateDto.IsPaid;
 
             await _context.SaveChangesAsync();
+            await _context.Entry(order).Reference(o => o.Gift).LoadAsync();
+            await _context.Entry(order).Reference(o => o.User).LoadAsync();
             return new OrderManagmentReadDto
             {
                 GiftId = order.GiftId,
                 TicketsCount = order.TicketsCount,
                 IsPaid = order.IsPaid,
                 GiftName = order.Gift?.Name ?? string.Empty,
-                TicketPrice = order.Gift?.TicketPrice ?? 0
+                TicketPrice = order.Gift?.TicketPrice ?? 0,
+                UserName = order.User != null ? order.User.UserName : string.Empty
             };
+        }
+
+        public async Task<IEnumerable<OrderManagmentReadDto>> GetOrdersByGiftIdAsync(int giftId)
+        {
+            return await _context.OrderManagements
+                .Where(order => order.GiftId == giftId)
+                .Include(o => o.Gift)
+                .Include(o => o.User)
+                .Select(order => new OrderManagmentReadDto
+                {
+                    GiftId = order.GiftId,
+                    TicketsCount = order.TicketsCount,
+                    IsPaid = order.IsPaid,
+                    GiftName = order.Gift != null ? order.Gift.Name : string.Empty,
+                    TicketPrice = order.Gift != null ? order.Gift.TicketPrice : 0,
+                    UserName = order.User != null ? order.User.UserName : string.Empty
+                })
+                .ToListAsync();
         }
     }
 }

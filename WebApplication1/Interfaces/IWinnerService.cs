@@ -8,5 +8,6 @@ namespace ChineseAuctionProject.Interfaces
         Task<IEnumerable<WinnerReadDTO>> GetAllWinnersAsync();
         Task<WinnerReadDTO> CreateWinnerAsync(int giftId, string userId);
         Task<decimal> GetTotalRevenueAsync();
+        Task<bool> SendWinnerEmailAsync(int winnerId);
     }
 }
